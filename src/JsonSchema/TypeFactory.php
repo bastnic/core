@@ -134,7 +134,13 @@ final class TypeFactory implements TypeFactoryInterface
             throw new \LogicException('The schema factory must be injected by calling the "setSchemaFactory" method.');
         }
 
-        $subSchema = $this->schemaFactory->buildSchema($className, $format, Schema::TYPE_OUTPUT, null, null, $subSchema, $serializerContext);
+        try {
+            $subSchema = $this->schemaFactory->buildSchema($className, $format, Schema::TYPE_OUTPUT, null, null, $subSchema, $serializerContext);
+        } catch (\Exception $exception) {
+            printf("error on %s\n", $className);
+            
+            return ['type' => 'string'];
+        }
 
         return ['$ref' => $subSchema['$ref']];
     }
