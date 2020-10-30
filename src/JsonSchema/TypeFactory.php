@@ -137,8 +137,6 @@ final class TypeFactory implements TypeFactoryInterface
         try {
             $subSchema = $this->schemaFactory->buildSchema($className, $format, Schema::TYPE_OUTPUT, null, null, $subSchema, $serializerContext);
         } catch (\Exception $exception) {
-            printf("error on %s\n", $className);
-            
             return ['type' => 'string'];
         }
 
